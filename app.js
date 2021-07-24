@@ -256,7 +256,6 @@ app.get("/signIn/:MACaddress/:studentID/:password", async function (req, res) {
           foundStd = JSON.stringify(foundStd);
           res.json(foundStd);
         }else{
-          foundStd = JSON.stringify(foundStd);
           res.json(foundStd);
       }
       }
@@ -273,7 +272,6 @@ app.get("/studentData/:studentID/:password", async function (req, res) {
     await Student.findOne({_id: studentID, accountPassword: studentAccountPassword}, function (err, foundStd) {
       if(!foundStd){console.log("Student not registered");}
       else {
-        foundStd = JSON.stringify(foundStd);
         res.json(std);
       }
     });
@@ -289,7 +287,6 @@ app.get("/studentPerformance/:courseID/:studentID", async function (req, res) {
     await Attendance.find({courseID: courseID, studentID: studentID}, function (err, foundAttendance) {
       if(!foundAttendance){console.log("No data is found");}
       else {
-        foundAttendance = JSON.stringify(foundAttendance);
         res.json(foundAttendance);
       }
     });
@@ -306,7 +303,6 @@ app.get("/coursePerformance/:courseID", async function (req, res) {
     await Attendance.find({courseID: courseID}, function (err, foundAttendance) {
       if(!foundAttendance){console.log("No data is found");}
       else {
-      //  foundAttendance = JSON.stringify(foundAttendance);
         res.json(foundAttendance);
       }
     });
