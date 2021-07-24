@@ -270,7 +270,7 @@ app.get("/studentData/:studentID/:password", async function (req, res) {
   try {
     const studentID = req.params.studentID;
     const studentAccountPassword = req.params.password;
-    await Student.find({_id: studentID, accountPassword: studentAccountPassword}, function (err, foundStd) {
+    await Student.findOne({_id: studentID, accountPassword: studentAccountPassword}, function (err, foundStd) {
       if(!foundStd){console.log("Student not registered");}
       else {
         foundStd = JSON.stringify(foundStd);
