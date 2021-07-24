@@ -306,7 +306,7 @@ app.get("/coursePerformance/:courseID", async function (req, res) {
     await Attendance.find({courseID: courseID}, function (err, foundAttendance) {
       if(!foundAttendance){console.log("No data is found");}
       else {
-        foundAttendance = JSON.stringify(foundAttendance);
+      //  foundAttendance = JSON.stringify(foundAttendance);
         res.json(foundAttendance);
       }
     });
