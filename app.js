@@ -205,6 +205,14 @@ async function SessionDuration(courseID, minTimeSpentInLecture, end) {
 }
 }
 
+async function attendance(courseID, minTimeSpentInLecture, end) {
+  try {
+    await fillingTempTable(courseID);
+   await SessionDuration(courseID, minTimeSpentInLecture, end);
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 ////////////////////////////////////////////Main////////////////////////////////////////////////
 
@@ -229,8 +237,7 @@ app.post("/session",async function(req, res) {
     const courseID= req.body.courseID;
     const minTimeSpentInLecture = req.body.minTimeSpentInLecture;
     const end = req.body.endSession;
-    await fillingTempTable(courseID);
-   await SessionDuration(courseID, minTimeSpentInLecture, end);
+    await attendance(courseID, minTimeSpentInLecture, end)
 }catch(error){
     console.log(error);
   }
