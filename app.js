@@ -69,11 +69,7 @@ const macSchema = {
 }
 const Mac = mongoose.model("Mac", macSchema);
 
-const intervalSchema = {
-  _id: String,
-  interval: Object
-}
-const Interval = mongoose.model("Interval", intervalSchema);
+
 ////////////////////////////////////////////Golbal Variables////////////////////////////////////////////////
    var tempID = "0";
    var lecTime = 0;
@@ -265,14 +261,14 @@ app.get("/signIn/:MACaddress/:studentID/:password", async function (req, res) {
   }
 });
 
-app.get("/studentData/:studentID/:password", async function (req, res) {
+app.get("/logIn/:studentID/:password", async function (req, res) {
   try {
     const studentID = req.params.studentID;
     const studentAccountPassword = req.params.password;
     await Student.findOne({_id: studentID, accountPassword: studentAccountPassword}, function (err, foundStd) {
       if(!foundStd){console.log("Student not registered");}
       else {
-        res.json(std);
+          res.json(foundStd);
       }
     });
   } catch (e) {
