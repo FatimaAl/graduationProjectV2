@@ -190,7 +190,7 @@ async function SessionDuration(courseID, minTimeSpentInLecture, end) {
       await TakingAttendence(courseID);
       lecTime++;
       console.log(lecTime);
-      if (lecTime >= end){
+      if (lecTime <= end){
         clearInterval(lecInterval);
         await UpdateAttendance(courseID, minTimeSpentInLecture);
         await updatingLectureTable(courseID,lecTime);
