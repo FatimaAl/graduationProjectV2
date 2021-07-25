@@ -280,10 +280,13 @@ app.get("/studentPerformance/:courseID/:studentID", async function (req, res) {
   try {
     const courseID = req.params.courseID;
     const studentID = req.params.studentID;
-    await Attendance.find({courseID: courseID, studentID: studentID}, function (err, foundAttendance) {
+    await Attendance.find({courseID: courseID, studentID: studentID}, async function (err, foundAttendance) {
       if(!foundAttendance){console.log("No data is found");}
       else {
-        res.json(foundAttendance);
+        //res.json(foundAttendance);
+        await Lecture.findOne({_id: foundAttendance.lectureID}, function (err, foundLec) {
+          res.json(foundAttendance + foundLec.lectureTime);
+        })
       }
     });
   } catch (e) {
