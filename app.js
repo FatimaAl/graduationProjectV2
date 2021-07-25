@@ -285,7 +285,15 @@ app.get("/studentPerformance/:courseID/:studentID", async function (req, res) {
       else {
         //res.json(foundAttendance);
         await Lecture.findOne({_id: foundAttendance.lectureID}, function (err, foundLec) {
-          res.json(foundAttendance + foundLec.lectureTime);
+          const obj = {
+            courseID: foundAttendance.courseID,
+            lectureID: foundAttendance.lectureID,
+            studentID: foundAttendance.studentID,
+            timeInLecture: foundAttendance.timeInLecture,
+            hasAttended: foundAttendance.hasAttended,
+            lectureTime: foundLec.lectureTime
+          }
+          res.json(obj);
         })
       }
     });
