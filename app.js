@@ -285,16 +285,22 @@ app.get("/studentPerformance/:courseID/:studentID", async function (req, res) {
       else {
         //res.json(foundAttendance);
         await Lecture.findOne({_id: foundAttendance.lectureID}, function (err, foundLec) {
-          const obj = {
-            courseID: foundAttendance.courseID,
-            lectureID: foundAttendance.lectureID,
-            studentID: foundAttendance.studentID,
-            timeInLecture: foundAttendance.timeInLecture,
-            hasAttended: foundAttendance.hasAttended,
-            lectureTime: foundLec.lectureTime
-          }
-          res.json(obj);
-        })
+          if(!found){console.log("lecture not found");}
+          else{
+            for (var i = 0; i < foundAttendance.length; i++) {
+              const obj = {
+                courseID: foundAttendance[i].courseID,
+                studentID: foundAttendance[i].studentID,
+                lectureID: foundAttendance[i].lectureID,
+                timeInLecture: foundAttendance[i].timeInLecture,
+                hasAttended: foundAttendance[i].hasAttended,
+                lectureTime: foundLec.lectureTime
+              }
+            }
+            console.log(obj);
+          //  res.json(obj);
+        }
+      });
       }
     });
   } catch (e) {
