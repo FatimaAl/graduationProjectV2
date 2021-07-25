@@ -283,12 +283,19 @@ app.get("/studentPerformance/:courseID/:studentID", async function (req, res) {
     await Attendance.find({courseID: courseID, studentID: studentID}, async function (err, foundAttendance) {
       if(!foundAttendance){console.log("No data is found");}
       else {
-        //res.json(foundAttendance);
-        await Lecture.findOne({_id: foundAttendance.lectureID}, function (err, foundLec) {
-          if(!found){console.log("lecture not found");}
+        await Lecture.findOne({_id: foundAttendance[0].lectureID}, function (err, foundLec) {
+          if(!foundLec){console.log("lecture not found");}
           else{
+            var obj = {
+              courseID: String,
+              lectureID: String,
+              studentID: String,
+              timeInLecture: Number,
+              hasAttended: Boolean,
+              lectureTime: Number
+            }
             for (var i = 0; i < foundAttendance.length; i++) {
-              const obj = {
+               obj = {
                 courseID: foundAttendance[i].courseID,
                 studentID: foundAttendance[i].studentID,
                 lectureID: foundAttendance[i].lectureID,
@@ -297,8 +304,7 @@ app.get("/studentPerformance/:courseID/:studentID", async function (req, res) {
                 lectureTime: foundLec.lectureTime
               }
             }
-            console.log(obj);
-          //  res.json(obj);
+            res.json(obj);
         }
       });
       }
