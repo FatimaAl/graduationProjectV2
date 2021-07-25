@@ -188,7 +188,7 @@ async function SessionDuration(courseID, minTimeSpentInLecture, end) {
 
     const lecInterval = setInterval(async function(){
       await TakingAttendence(courseID);
-      lecTime++;
+      lecTime+=5;
       console.log(lecTime);
       if (lecTime >= end){
         clearInterval(lecInterval);
