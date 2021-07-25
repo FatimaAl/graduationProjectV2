@@ -280,6 +280,7 @@ app.get("/studentPerformance/:courseID/:studentID", async function (req, res) {
   try {
     const courseID = req.params.courseID;
     const studentID = req.params.studentID;
+    var objects = [];
     await Attendance.find({courseID: courseID, studentID: studentID}, async function (err, foundAttendance) {
       if(!foundAttendance){console.log("No data is found");}
       else {
@@ -303,8 +304,9 @@ app.get("/studentPerformance/:courseID/:studentID", async function (req, res) {
                 hasAttended: foundAttendance[i].hasAttended,
                 lectureTime: foundLec.lectureTime
               }
+              objects[i] = obj;
             }
-            res.json(obj);
+            res.json(objects);
         }
       });
       }
